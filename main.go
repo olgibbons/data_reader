@@ -1,31 +1,18 @@
 package main
 
 import (
-	"encoding/csv"
 	"fmt"
-	"log"
-	"os"
 )
-
-func readCsvFile(filePath string) [][]string {
-	f, err := os.Open(filePath)
-	if err != nil {
-		log.Fatal("Unable to read input file "+filePath, err)
-	}
-	defer f.Close()
-
-	csvReader := csv.NewReader(f)
-	records, err := csvReader.ReadAll()
-	if err != nil {
-		log.Fatal("Unable to parse file as CSV for "+filePath, err)
-	}
-
-	return records
-}
 
 func main() {
 	records := readCsvFile("username.csv")
 	fmt.Println(records)
+	fmt.Printf("The number of fields is %d", getFieldNum(records))
+	fmt.Println("csv[0] is ", records[0])
+	fmt.Println("the len of csv[0] is", len(records[0]))
+}
 
-	fmt.Printf("There are %d records", len(records)-1)
+// Function that returns number of fields
+func getFieldNum(csv [][]string) int {
+	return len(csv[0][0])
 }
